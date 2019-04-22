@@ -161,6 +161,7 @@
                     // console.log(parseInt(unitPrice));
                     inputQuantity.disabled = false;
                     var totalPriceValue;
+                    // out focus mới tính tổng giá nhé!
                     inputQuantity.onfocusout = function () {
                         totalPriceValue = calc(parseInt(unitPrice), inputQuantity.value);
                         totalPrice.innerHTML = totalPriceValue + "&nbsp;vnđ";
