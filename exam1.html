@@ -20,7 +20,7 @@
             color: #fff;
         }
 
-        .slv-input{
+        .slv-input {
             background-color: rgba(255, 255, 255, 0);
             color: #fff;
         }
@@ -30,7 +30,8 @@
             margin-top: 0;
             position: static;
         }
-        .totalPrice{
+
+        .totalPrice {
             color: #fff;
         }
     </style>
@@ -123,7 +124,6 @@
 
     document.addEventListener("DOMContentLoaded", function (event) {
         selectOnChange();
-        isChecked();
     });
 
     function initData(startPrice, endPrice) {
@@ -142,11 +142,15 @@
                     '<td>' +
                     '<input type="number" class="form-control slv-input quanti" value="' + data[i].quanti + '" disabled>' +
                     '</td>' +
-                    '<td><div class="totalPrice"></div></td>' +
+                    '<td><div class="totalPrice" data-price="0"></div></td>' +
                     '</tr>';
             }
         }
-        tBody.innerHTML = content;
+        var totalPriceView = '<tr>' +
+            '<th colspan="4" class="text-center" >Tổng</th> ' +
+            '<td id="totalPriceOrder" data-price="0"></td>' +
+            '</tr>';
+        tBody.innerHTML = content + totalPriceView;
     }
 
     // Bài 2, Bài 3, kèm bài 4;
@@ -157,7 +161,7 @@
                 var inputQuantity = document.getElementById(checkBox[i].getAttribute("id")).parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.firstChild;
                 var unitPrice = document.getElementById(checkBox[i].getAttribute("id")).parentElement.parentElement.nextElementSibling.nextElementSibling.textContent;
                 var totalPrice = document.getElementById(checkBox[i].getAttribute("id")).parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstChild;
-                if (checkBox[i].checked){
+                if (checkBox[i].checked) {
                     // console.log(parseInt(unitPrice));
                     inputQuantity.disabled = false;
                     var totalPriceValue;
@@ -165,8 +169,10 @@
                     inputQuantity.onfocusout = function () {
                         totalPriceValue = calc(parseInt(unitPrice), inputQuantity.value);
                         totalPrice.innerHTML = totalPriceValue + "&nbsp;vnđ";
+                        totalPrice.setAttribute("data-price", totalPriceValue);
+                        totalPriceOrder();
                     };
-                }else {
+                } else {
                     inputQuantity.disabled = true;
                     totalPrice.innerHTML = "";
                     inputQuantity.value = "0";
@@ -181,13 +187,31 @@
         var option = select.options[select.selectedIndex].value;
         var splited = option.split("-", 2);
         initData(splited[0], splited[1]);
+        isChecked();
     }
 
     function calc(unitPrice, quantity) {
-        return  unitPrice * quantity;
+        return unitPrice * quantity;
     }
 
-
+    function totalPriceOrder() {
+        var totalPrice = 0;
+        var viewTotalPrice = document.getElementsByClassName('totalPrice');
+        var checkbox = document.querySelector('.slv-checkbox:checked');
+        console.log(checkbox);
+        if (checkbox != null || checkbox.length !== 0){
+            for (let i = 0; i < viewTotalPrice.length; i++) {
+                if (viewTotalPrice[i].innerHTML !== ''){
+                    totalPrice += parseInt(viewTotalPrice[i].getAttribute('data-price'));
+                }
+            }
+            // console.log(totalPrice);
+            var tPO = document.getElementById('totalPriceOrder');
+            tPO.innerHTML = '';
+            tPO.setAttribute("data-price", totalPrice);
+            tPO.innerText = tPO.getAttribute("data-price") + "&nbsp;vnđ";
+        }
+    }
 </script>
 
 </html>
