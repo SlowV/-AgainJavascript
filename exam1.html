@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EXAMPLE 1</title>
+
+    <!--Stylesheet Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!--My css-->
+    <style>
+        td, th {
+            vertical-align: middle !important;
+        }
+
+        .slv-input:disabled {
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
+        }
+
+        .slv-input{
+            background-color: rgba(255, 255, 255, 0);
+            color: #fff;
+        }
+
+
+        .slv-checkbox {
+            margin-top: 0;
+            position: static;
+        }
+        .totalPrice{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-8 offset-md-2 text-right">
+            <select class="custom-select w-25" id="filterPrice" onchange="selectOnChange()">
+                <option selected="selected" value="0-100000">Chọn mức giá</option>
+                <option value="50-100">50 ~ 100</option>
+                <option value="100-200">100 ~ 200</option>
+                <option value="200-500">200 ~ 500</option>
+                <option value="500-1000">500 ~ 1000</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 mt-3 table-content">
+            <table class="table table-bordered table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<!--JS Bootstrap-->
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!--My script-->
+
+<script>
+
+    var data = [
+        {
+            id: 1,
+            name: "Iphone 9",
+            price: 700,
+            quanti: 0,
+        },
+        {
+            id: 2,
+            name: "SamSung",
+            price: "400 vnđ",
+            quanti: 0,
+        },
+        {
+            id: 3,
+            name: "Nokia",
+            price: 100,
+            quanti: 0,
+        },
+        {
+            id: 4,
+            name: "Sony Speria",
+            price: 100,
+            quanti: 0,
+        },
+        {
+            id: 5,
+            name: "Motorola",
+            price: 180,
+            quanti: 0,
+        },
+        {
+            id: 6,
+            name: "Oppo",
+            price: 600,
+            quanti: 0,
+        },
+        {
+            id: 7,
+            name: "B Phone",
+            price: 90,
+            quanti: 0,
+        },
+    ];
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        selectOnChange();
+        isChecked();
+    });
+
+    function initData(startPrice, endPrice) {
+        var tBody = document.querySelector(".table-content tbody");
+        var content = "";
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].price >= startPrice && data[i].price <= endPrice) {
+                content += '<tr>'
+                    + '<th scope="row">'
+                    + '<div class="form-check">' +
+                    '<input class="form-check-input slv-checkbox" name="myProduct[]" id="' + data[i].id + '" type="checkbox" value="' + data[i].name + '">' +
+                    '</div>' +
+                    '</th>' +
+                    '<td>' + data[i].name + '</td>' +
+                    '<td>' + data[i].price + '</td>' +
+                    '<td>' +
+                    '<input type="number" class="form-control slv-input quanti" value="' + data[i].quanti + '" disabled>' +
+                    '</td>' +
+                    '<td><div class="totalPrice"></div></td>' +
+                    '</tr>';
+            }
+        }
+        tBody.innerHTML = content;
+    }
+
+    // Bài 2, Bài 3, kèm bài 4;
+    function isChecked() {
+        var checkBox = document.getElementsByName("myProduct[]");
+        for (let i = 0; i < checkBox.length; i++) {
+            checkBox[i].onclick = function () {
+                var inputQuantity = document.getElementById(checkBox[i].getAttribute("id")).parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.firstChild;
+                var unitPrice = document.getElementById(checkBox[i].getAttribute("id")).parentElement.parentElement.nextElementSibling.nextElementSibling.textContent;
+                var totalPrice = document.getElementById(checkBox[i].getAttribute("id")).parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstChild;
+                if (checkBox[i].checked){
+                    // console.log(parseInt(unitPrice));
+                    inputQuantity.disabled = false;
+                    var totalPriceValue;
+                    inputQuantity.onfocusout = function () {
+                        totalPriceValue = calc(parseInt(unitPrice), inputQuantity.value);
+                        totalPrice.innerHTML = totalPriceValue + "&nbsp;vnđ";
+                    };
+                }else {
+                    inputQuantity.disabled = true;
+                    totalPrice.innerHTML = "";
+                    inputQuantity.value = "0";
+                }
+            }
+        }
+    }
+
+    // Bài 1
+    function selectOnChange() {
+        var select = document.getElementById("filterPrice");
+        var option = select.options[select.selectedIndex].value;
+        var splited = option.split("-", 2);
+        initData(splited[0], splited[1]);
+    }
+
+    function calc(unitPrice, quantity) {
+        return  unitPrice * quantity;
+    }
+
+
+</script>
+
+</html>
