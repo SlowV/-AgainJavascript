@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Thông tin sách</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<form action="#" class="slv_form_book" name="form_book">
+    <fieldset>
+        <legend class="slv_text_blue">&nbsp;Thông tin sách&nbsp;</legend>
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Tên sách:</label>
+            <input type="text" class="slv_form_control" name="name" placeholder="Tên sách..." value="">
+        </div>
+        <div class="slv_form_group">
+            <div style="flex: 3"></div>
+            <div class="msg_name d_none"></div>
+        </div>
+
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Nhà xuất bản:</label>
+            <input type="text" class="slv_form_control" name="publishing_company" placeholder="Nhà xuất bản...">
+        </div>
+        <div class="slv_form_group">
+            <div style="flex: 3"></div>
+            <div class="msg_publishing_company d_none"></div>
+        </div>
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Số lượng:</label>
+            <input type="number" class="slv_form_control" name="quantity" placeholder="Số lượng...">
+        </div>
+        <div class="slv_form_group">
+            <div style="flex: 3"></div>
+            <div class="msg_quantity d_none"></div>
+        </div>
+
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue" style="flex: 4">Đơn giá:</label>
+            <input type="number" class="slv_form_control" name="unit_price" placeholder="Đơn giá...">
+            <select class="slv_custom_select" name="currency" >
+                <option value="vnd">VNĐ</option>
+                <option value="usd">USD</option>
+            </select>
+        </div>
+        <div class="slv_form_group">
+            <div style="flex: 3"></div>
+            <div class="msg_unit_price d_none"></div>
+        </div>
+
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Tổng tiền:</label>
+            <input type="text" class="slv_form_control slv_disable" name="total_price" value="0 VNĐ" disabled>
+        </div>
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Ngày/Tháng/Năm xuất bản:</label>
+            <input type="date" class="slv_form_control" name="date_publish" style="height: 35px">
+        </div>
+        <div class="slv_form_group">
+            <div style="flex: 3"></div>
+            <div class="msg_date_publish d_none"></div>
+        </div>
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Loại sách</label>
+            <select class="slv_custom_select" name="book_category" id="book_category">
+                <option value="Sách thiếu nhi" selected>Sách thiếu nhi</option>
+                <option value="Sách khoa học kỹ thuậ">Sách khoa học kỹ thuật</option>
+            </select>
+        </div>
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Người nhập:</label>
+            <input type="text" class="slv_form_control" name="user" placeholder="Người nhập...">
+        </div>
+        <div class="slv_form_group">
+            <div style="flex: 3"></div>
+            <div class="msg_user d_none"></div>
+        </div>
+
+        <div class="slv_form_group">
+            <label class="slv_text_blue">Sản phẩm đang có:</label>
+            <div style="flex: 5">
+                <input type="checkbox" class="myCheckbox" name="inDepot" value="Trong kho"> Trong kho
+                <input type="checkbox" class="myCheckbox" name="sell" value="Bày bán"> Bày bán
+                <input type="checkbox" class="myCheckbox" name="unchecked" value="Bày bán"> Chưa kiểm tra
+            </div>
+        </div>
+
+        <div class="slv_form_group" style="margin-top: 20px;">
+            <div style="flex: 1; text-align: right; padding-right: 20px">
+                <button type="button" class="slv_btn slv_success_outline slv_text_blue" id="Submit">
+                    Hiển thị thông tin
+                </button>
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <button type="reset" class="slv_btn slv_dark_outline slv_text_blue" id="btn_reset">
+                    Xóa thông tin
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+</body>
+<script src="js/index.js"></script>
+</html>
